@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="myProjects/webProject/icofont/css/icofont.min.css"> -->
+    <script src="https://kit.fontawesome.com/427e69b628.js"></script>
+    <link rel="stylesheet" href="13cards.css">
+    <script src="vue.js/js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+            <div class="cards">
+                    <div class="card" v-for="(num,index) in numbers" v-if="showCards">
+                        <div class="box" v-bind:class="bindingClass">
+                            <div class="left">
+                                <div class="number">
+                                            {{num}}
+                                </div>
+                                <div class="suit" v-html="currentSuit">
+                                            <!-- {{}} -->
+                                </div>
+                            </div>                   
+                            <div class="suits" v-if="index+1 < 11">
+                                {{display(index+1)}}
+                                <div class="each" v-for="suit in noofsuits" v-html="suit">
+                                    <!-- {{suit}} -->
+                                </div>
+                            </div>
+                            <div class="suits faceCards" v-if=" index+1 > 10 " >
+                            <!-- <div class="suits" v-if=" index+1 > 10 " v-bind:class="faceCards"> -->
+                                    <span v-html="facecards[index+1 - 11]" ></span>
+                            </div>
+                            
+                            <div class="right">
+                                <div class="number">
+                                            {{num}}
+                                </div>
+                                <div class="suit" v-html="currentSuit">
+                                        <!-- {{currentSuit}} -->
+                                </div>
+                            </div>    
+                        </div>
+                    </div>
+                   
+                    <div class="options" v-if="showCards">
+                            <button @click="showrotateXYZ" @dblclick="rotateCard" >Rotate</button>
+                            
+                            <button @click="flipCard">Flip</button>
+                            <button @click="swapCard">Swap</button>
+                            <button @click="fadeOut" v-if="fadeout">Fade Out</button>
+                            <button v-else @click="fadeIn">Fade In</button>
+                            <button @click="changeSuit">Change the Suit</button>
+                            <button @click="scaleshow">Scale</button>
+                            <button @click="skewshow">Skew</button>
+                            <button @click="D3show">3D</button>
+                            <button @click="perspective">Perspective</button>
+        
+        
+                            <div class="selectRotate" v-if="showrotateselection">
+                                <button @click="rotateX">X-axis</button>
+                                <button @click="rotateY">Y-axis</button>
+                                <button @click="rotateZ">Z-axis</button>
+                                <button @click='cancelrotate'>Cancel</button>
+                            </div>
+        
+                            <div class="selectswap" v-if="showswapselection">
+                                <button @click="rearrange">Re-arrange</button>
+                            </div>
+        
+                            <div class="selectSuits" v-if="showSelection">
+                                <button @click="heart" v-html="suits.Heart"></button>
+                                <button @click="spades" v-html="suits.Spades"></button>
+                                <button @click="diamond" v-html="suits.Diamond"></button>
+                                <button @click="club" v-html="suits.Club"></button>
+                                <button @click='cancelsuits'>Cancel</button>
+                            </div>
+                    </div>
+                </div>
+        <!-- Perspective -->
+        <div class="skew" v-if="showperspective">
+                <div class="title">
+                    <h2>Perspective</h2>
+                </div>
+                <div class="main">
+                    <div class="card">
+                        <!-- <div class="forperspective" v-bind:style="Style">
+                            <img src="/joker-card.png" title="HaHaHaHa" >
+                        </div> -->
+                        <!-- CUBE -->
+                        <!-- w3 school -->
+                        <!-- <div class="ex1" v-bind:style="Style" >
+                            <div class="cube">
+                            <div class="side front">1</div>
+                            <div class="side back">6</div>
+                            <div class="side right">4</div>
+                            <div class="side left">3</div>
+                            <div class="side top">5</div>
+                            <div class="side bottom">2</div>
+                            </div>
+                        </div> -->
+                        <!-- code pen -->
+                       <!--  <div class="body" >
+                            <div class="cube" v-bind:style="Style">
+                                <div class="cubeFace"></div>
+                                <div class="cubeFace face2"></div>
+                            </div>
+                        </div> -->
+                        <div id="wrapD3Cube" v-bind:style="Style">
+                                <div id="D3Cube" >
+                                    <div id="side1"></div>
+                                    <div id="side2"></div>
+                                    <div id="side3"></div>
+                                    <div id="side4"></div>
+                                    <div id="side5"></div>
+                                    <div id="side6"></div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <button @click="changeperspective">Change Perspective</button>
+                    <button @click="cancelperspective">Cancel</button>
+                    <div class="perspectiveform" v-if="showperspectiveform" >
+                        Enter the value to change the perspective: <input type="text" v-model="Value">
+                        <button @click="perspectivedone">Done</button>
+                    </div>
+                </div>
+        </div>
+        <!-- 3D transform -->
+            <div class="D3" v-if="show3D">
+                    <div class="title">
+                        <h2>3 D</h2>
+                    </div>
+                    <div class="main">
+                        <div class="card">
+                            <img src="/joker-card.png" title="HaHaHaHa" v-bind:style="Style">
+                        </div>
+                    </div>
+                    <div class="buttons">
+                        <button @click="rotate3D">Rotate3D</button>
+                        <button @click="translate3D">Translate3D</button>
+                        <button @click="scale3D">Scale3D</button>
+                        <button @click="cancel">Cancel</button>    
+                    </div>
+                    <!-- 3D form for getting input -->
+                    <div class="forms">
+                    <div class="form" v-if="show3dform">
+                        <div class="select3drotation" >
+                            Enter the value you want to rotate3d to:&nbsp;  
+                            X-axis : <input type="text" v-model="xyza.x">&nbsp;
+                            Y-axis : <input type="text" v-model="xyza.y">&nbsp;
+                            Z-axis : <input type="text" v-model="xyza.z">&nbsp;
+                            A(angle) : <input type="text" v-model="xyza.a">&nbsp;
+                        </div>
+                        <button @click="d3done">Done</button>
+                        <!-- 
+                            x
+                            Is a <number> describing the x-coordinate of the vector denoting the axis of rotation which could between 0 and 1.
+                            y
+                            Is a <number> describing the y-coordinate of the vector denoting the axis of rotation which could between 0 and 1.
+                            z
+                            Is a <number> describing the z-coordinate of the vector denoting the axis of rotation which could between 0 and 1.
+                            a
+                            Is an <angle> representing the angle of the rotation. A positive angle denotes a clockwise rotation, a negative angle a counter-clockwise one.
+                         -->
+                    </div>
+                    <!-- form to get the data for translation -->
+                    <div class="form" v-if="showtranslateform">
+                        <div class="selecttranslation" >
+                            Enter the value you want to translate to:&nbsp;  
+                            tx : <input type="text" v-model="txyz.tx">&nbsp;
+                            ty : <input type="text" v-model="txyz.ty">&nbsp;
+                            tz : <input type="text" v-model="txyz.tz">&nbsp;
+                        </div>
+                        <button @click="translatedone">Done</button>
+                        <!-- 
+                            tx Is a <length> or <percentage> representing the abscissa of the translating vector.
+                            ty Is a <length> or <percentage> representing the ordinate of the translating vector.
+                            tz Is a <length> representing the z component of the translating vector.
+                            It can't be a <percentage> value; in that case the property containing the transform is considered invalid. 
+                         -->
+                    </div>
+                    <!-- form to get data for scaling -->
+                    <div class="form" v-if="show3dscaleform">
+                        <div class="selectscaling" >
+                            Enter the value you want to scale to:&nbsp;  
+                            Sx : <input type="text" v-model="sxyz.sx">&nbsp;
+                            Sy : <input type="text" v-model="sxyz.sy">&nbsp;
+                            Sz : <input type="text" v-model="sxyz.sz">&nbsp;
+                        </div>
+                        <button @click="d3done">Done</button>
+                        <!--
+                            sx
+                            Is a <number> representing the abscissa of the scaling vector.
+                            sy
+                            Is a <number> representing the ordinate of the scaling vector.
+                            sz
+                            Is a <number> representing the z-component of the scaling vector. 
+                        -->
+                    </div>
+                    </div>
+            </div>
+            <!-- Scale -->
+            <div class="scale" v-if="showScale">
+                    <div class="title">
+                        <h2>Scale</h2>
+                    </div>
+                    <div class="main">
+                        <div class="card">
+                            <img src="/joker-card.png" title="HaHaHaHa" v-bind:style="Style">
+                        </div>
+                    </div>
+                    <div class="buttons">
+                        <button @click="scaleX">scale X</button>
+                        <button @click="scaleY">scale Y</button>
+                        <button @click="scalecancel">Cancel</button>
+                        <div class="scaleform" v-if="showscaleform" >
+                            Enter the value you want to scale{{xory}}: <input type="text" v-model="Value">
+                            <button @click="scaledone">Done</button>
+                        </div>
+                    </div>
+            </div>
+            <!-- Skew -->
+            <div class="skew" v-if="showSkew">
+                    <div class="title">
+                        <h2>Skew</h2>
+                    </div>
+                    <div class="main">
+                        <div class="card">
+                            <img src="/joker-card.png" title="HaHaHaHa" v-bind:style="Style">
+                        </div>
+                    </div>
+                    <div class="buttons">
+                        <button @click="skewX" v-bind:class="bindingClass">Skew X</button>
+                        <button @click="skewY" v-bind:class="bindingClass">Skew Y</button>
+                        <button @click="skewcancel">Cancel</button>
+                        <div class="skewform" v-if="showskewform" >
+                            Enter the value you want to skew{{xory}}: <input type="text" v-model="Value">
+                            <button @click="skewdone">Done</button>
+                        </div>
+                    </div>
+            </div>
+        <!-- Main cards -->
+       
+    </div>  
+</body>
+<script src="13cards.js"></script>
+
+</html>

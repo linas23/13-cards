@@ -1,0 +1,312 @@
+*{
+    border: 0;
+    margin:0;
+}
+.cards{
+    display: grid;
+    grid-template-areas: "one two three four five six "
+                         "seven eight nine ten eleven tweleve"
+                         "thirteen options ....";
+    grid-template-columns:repeat(6,1fr);
+    grid-template-rows: repeat(3,33vh);
+}
+body{
+    background:black;
+    margin: 5px auto;
+    width: 100%;
+}
+.card{
+    background: grey;
+    margin: 5px;
+    padding: 15px 50px;
+}
+.box{
+    background: white;
+    height: 100%;
+    position: relative;
+    font-size: 20px;
+    opacity: 1;
+    transition: all 1s ease-in-out;
+}
+.left{
+    position: relative;
+    top: 5px;
+    left: 10px;
+}
+.suits{
+    position: relative;
+    top: 5px;
+    left: 15px;
+    text-align: center;
+    /* background: chartreuse; */
+    max-width: 85%;
+    max-height: 100%;
+}
+.each{
+    display: inline-block;
+    margin:0px  20px;
+}
+.right{
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    transform: rotate(180deg);
+}
+.options{
+    grid-row: 3/4;
+    grid-column: 2/7;
+    /* grid-area: options; */
+    margin: auto 0px;
+}
+
+.options button{
+    display: inline-block;
+    margin: 10px;
+    width: auto;
+    min-width: 100px;
+    height: 33px;
+    border: none;
+    font-size: 1.2rem;
+}
+.red, .fa-heart-broken{
+    color: red;
+}
+.black{
+    color: black;
+}
+.faceCards img {
+    /* margin: 0px auto; */
+    width: 75%;
+    height: 75%;
+    /* background: red; */
+}
+.skew,.scale,.D3{
+    color: black;
+    margin: 0px auto;
+    width: 85%;
+    background: white;
+    /* position: relative;
+    top: 0;
+    left: 0  */
+}
+.skew .title,.scale .title,.D3 .title{
+    text-align: center;
+    height:7vh; 
+    padding: 2vh;
+    font-size: 1.4rem;
+    letter-spacing: 0.5cm;
+}
+.skew .main, .scale .main, .D3 .main{
+    height: 70vh;
+    text-align: center;
+}
+.skew .main .card, .scale .main .card, .D3 .main .card{
+    background: white;
+    margin: 0px auto;
+    width: 40%;
+    padding: 45px;
+}
+.skew .main .card img, .scale .main .card img, .D3 .main .card img{
+    height: 75%;
+    width: 75%;
+}
+.skew .buttons , .scale .buttons , .D3 .buttons{
+    margin:auto 0px;
+    height: 20vh;
+    background: white;
+    display: flex;
+    justify-content: center;
+    overflow: visible;
+}
+.skew .buttons button, .scale .buttons button , .D3 .buttons button{
+    /* display: inline-block; */
+    min-width: 100px;
+    height: 30px;
+    margin: 4vh;
+}
+.skew input, .scale input, .D3 input {
+    border-bottom: 1px dashed black;
+}
+.skew .selectedX,.skew .selectedY, .scale .selected{
+    background: lightblue;
+}
+.form {
+    /* text-align: center; */
+    display: flex;
+    justify-content: center;
+    margin-top: -50px;
+}
+.form input{
+    width: 33px;
+}
+.form button{
+    text-align: center;
+    min-width: 100px;
+    height: auto;
+    margin-left: 20px;
+}
+/*effects of the buttons*/
+.rotate{
+    transform: rotate3D(90deg);
+}
+.rotateX{
+    transform: rotateX(180deg);
+}
+.rotateY{
+    transform: rotateY(180deg);
+}
+.rotateZ{
+    transform: rotateZ(180deg);
+}
+.flip{
+    transform:rotateY(180deg);
+}
+.fadeout{
+    opacity: 0.3;
+}
+button:hover{
+    background: dimgrey;
+    color: white;
+    transition: background 0.3s ease,color 0.3s ease;
+}
+
+
+/* CUBE */
+/* w3 school */
+/* .cube {
+    font-size: 4em;
+    width: 2em;
+    margin: 1.5em auto;
+    transform-style: preserve-3d;
+    transform: rotateX(-45deg) rotateY(30deg);
+  }
+  
+  .side {
+    position: absolute;
+    width: 2em;
+    height: 2em;
+    background: rgba(100,100,100,0.5);
+    border: 1px solid red;
+    text-align: center;
+    line-height: 2em;
+  }
+  
+  .front {transform: translateZ(1em);}
+  .top {transform: rotateX(90deg) translateZ(1em);}
+  .right {transform: rotateY(90deg) translateZ(1em);}
+  .left {transform: rotateY(-90deg) translateZ(1em);}
+  .bottom {transform: rotateX(-90deg) translateZ(1em);}
+  .back {transform: rotateY(-180deg) translateZ(1em);} */
+
+  /* .scene {
+    perspective: 800px;
+  } */
+
+/* .body{
+    perspective-origin:50% -100%;
+    perspective: 1500px;
+    overflow:hidden;
+    background:#333;
+    height: 450px;
+}
+.cube {
+    margin-top: 100px;
+    position:relative;
+    padding-bottom:20%;
+    transform-style: preserve-3d;
+    transform-origin: 50% 100%;
+    transform:rotateY(360deg) rotateX(0);
+    transition:transform 15s;
+  }
+  .cubeFace {
+    position: absolute;
+    left:40%;top:0;
+    width: 20%;height:100%;
+    margin: 0 auto;
+    transform-style: inherit;
+    background: rgb(224, 130, 134);
+    box-shadow:inset 0 0 0 5px #333; 
+    transform-origin:50% 50%;
+    transform: rotateX(90deg);
+    backface-visibility:hidden;
+  }
+  .face2{
+    transform-origin:50% 50%;
+    transform: rotatez(90deg) translateX(100%) rotateY(90deg);
+  }
+  .cubeFace:before, .cubeFace:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform-origin:0 0;
+    background: inherit;
+    box-shadow:inherit;
+    backface-visibility:inherit;
+  }
+  .cubeFace:before {
+    top: 100%; left: 0;
+    transform: rotateX(-90deg);
+  }
+  .cubeFace:after {
+    top: 0; left: 100%;
+    transform: rotateY(90deg);
+  } */
+  
+  /* .body:hover .cube{
+    transform:rotateY(405deg) rotateX(360deg);
+  } */
+
+#wrapD3Cube {
+    width: 500px;
+    height: 426px;
+    margin: 20px auto;
+    background-color: #EEE;
+}
+#wrapD3Cube:hover{
+    transform: rotate3d(100deg);
+
+}
+#D3Cube {
+    width: 112px;
+    height: 112px;
+    top: 150px;
+    transform-style: preserve-3d;
+    transform: rotateX(-22deg) rotateY(-38deg) rotateZ(0deg);
+    margin: auto;
+    position: relative;
+    /* transition: all 3s ease-in-out; */
+}   
+#D3Cube > div {
+    position: absolute;
+    width: 112px;
+    height: 112px;
+    float: left;
+    overflow: hidden;
+    opacity: 0.85;
+    transition: all 3s ease-in-out;
+}
+#side1 {
+    transform: rotatex(90deg) translateX(0px) translateY(0px) translateZ(56px);
+    background-color: #FFF;
+}
+#side2 {
+    transform: rotateY(-90deg) translateX(0px) translateY(0px) translateZ(56px);
+    background-color: #ffaf1c;
+}
+#side3 {
+    transform: translateX(0px) translateY(0px) translateZ(56px);
+    background-color: #58d568;
+}
+#side4 {
+    transform: rotateY(90deg) translateX(0px) translateY(0px) translateZ(56px);
+    background-color: #ed3030;
+}
+#side5 {
+    transform: rotateY(180deg) translateX(0px) translateY(0px) translateZ(56px);
+    background-color: #1c5ffe;
+}
+#side6 {
+    transform: rotateX(-90deg) translateX(0px) translateY(0px) translateZ(56px);
+    background-color: #f2f215;
+}
