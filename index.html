@@ -13,73 +13,7 @@
 
 <body>
     <div id="app">
-            <div class="cards">
-                    <div class="card" v-for="(num,index) in numbers" v-if="showCards">
-                        <div class="box" v-bind:class="bindingClass">
-                            <div class="left">
-                                <div class="number">
-                                            {{num}}
-                                </div>
-                                <div class="suit" v-html="currentSuit">
-                                            <!-- {{}} -->
-                                </div>
-                            </div>                   
-                            <div class="suits" v-if="index+1 < 11">
-                                {{display(index+1)}}
-                                <div class="each" v-for="suit in noofsuits" v-html="suit">
-                                    <!-- {{suit}} -->
-                                </div>
-                            </div>
-                            <div class="suits faceCards" v-if=" index+1 > 10 " >
-                            <!-- <div class="suits" v-if=" index+1 > 10 " v-bind:class="faceCards"> -->
-                                    <span v-html="facecards[index+1 - 11]" ></span>
-                            </div>
-                            
-                            <div class="right">
-                                <div class="number">
-                                            {{num}}
-                                </div>
-                                <div class="suit" v-html="currentSuit">
-                                        <!-- {{currentSuit}} -->
-                                </div>
-                            </div>    
-                        </div>
-                    </div>
-                   
-                    <div class="options" v-if="showCards">
-                            <button @click="showrotateXYZ" @dblclick="rotateCard" >Rotate</button>
-                            
-                            <button @click="flipCard">Flip</button>
-                            <button @click="swapCard">Swap</button>
-                            <button @click="fadeOut" v-if="fadeout">Fade Out</button>
-                            <button v-else @click="fadeIn">Fade In</button>
-                            <button @click="changeSuit">Change the Suit</button>
-                            <button @click="scaleshow">Scale</button>
-                            <button @click="skewshow">Skew</button>
-                            <button @click="D3show">3D</button>
-                            <button @click="perspective">Perspective</button>
-        
-        
-                            <div class="selectRotate" v-if="showrotateselection">
-                                <button @click="rotateX">X-axis</button>
-                                <button @click="rotateY">Y-axis</button>
-                                <button @click="rotateZ">Z-axis</button>
-                                <button @click='cancelrotate'>Cancel</button>
-                            </div>
-        
-                            <div class="selectswap" v-if="showswapselection">
-                                <button @click="rearrange">Re-arrange</button>
-                            </div>
-        
-                            <div class="selectSuits" v-if="showSelection">
-                                <button @click="heart" v-html="suits.Heart"></button>
-                                <button @click="spades" v-html="suits.Spades"></button>
-                                <button @click="diamond" v-html="suits.Diamond"></button>
-                                <button @click="club" v-html="suits.Club"></button>
-                                <button @click='cancelsuits'>Cancel</button>
-                            </div>
-                    </div>
-                </div>
+            
         <!-- Perspective -->
         <div class="skew" v-if="showperspective">
                 <div class="title">
@@ -245,6 +179,73 @@
                     </div>
             </div>
         <!-- Main cards -->
+        <div class="cards">
+                <div class="card" v-for="(num,index) in numbers" v-if="showCards">
+                    <div class="box" v-bind:class="bindingClass">
+                        <div class="left">
+                            <div class="number">
+                                        {{num}}
+                            </div>
+                            <div class="suit" v-html="currentSuit">
+                                        <!-- {{}} -->
+                            </div>
+                        </div>                   
+                        <div class="suits" v-if="index+1 < 11">
+                            {{display(index+1)}}
+                            <div class="each" v-for="suit in noofsuits" v-html="suit">
+                                <!-- {{suit}} -->
+                            </div>
+                        </div>
+                        <div class="suits faceCards" v-if=" index+1 > 10 " >
+                        <!-- <div class="suits" v-if=" index+1 > 10 " v-bind:class="faceCards"> -->
+                                <span v-html="facecards[index+1 - 11]" ></span>
+                        </div>
+                        
+                        <div class="right">
+                            <div class="number">
+                                        {{num}}
+                            </div>
+                            <div class="suit" v-html="currentSuit">
+                                    <!-- {{currentSuit}} -->
+                            </div>
+                        </div>    
+                    </div>
+                </div>
+               
+                <div class="options" v-if="showCards">
+                        <button @click="showrotateXYZ" @dblclick="rotateCard" >Rotate</button>
+                        
+                        <button @click="flipCard">Flip</button>
+                        <button @click="swapCard">Swap</button>
+                        <button @click="fadeOut" v-if="fadeout">Fade Out</button>
+                        <button v-else @click="fadeIn">Fade In</button>
+                        <button @click="changeSuit">Change the Suit</button>
+                        <button @click="scaleshow">Scale</button>
+                        <button @click="skewshow">Skew</button>
+                        <button @click="D3show">3D</button>
+                        <button @click="perspective">Perspective</button>
+    
+    
+                        <div class="selectRotate" v-if="showrotateselection">
+                            <button @click="rotateX">X-axis</button>
+                            <button @click="rotateY">Y-axis</button>
+                            <button @click="rotateZ">Z-axis</button>
+                            <button @click='cancelrotate'>Cancel</button>
+                        </div>
+    
+                        <div class="selectswap" v-if="showswapselection">
+                            <button @click="rearrange">Re-arrange</button>
+                        </div>
+    
+                        <div class="selectSuits" v-if="showSelection">
+                            <button @click="heart" v-html="suits.Heart"></button>
+                            <button @click="spades" v-html="suits.Spades"></button>
+                            <button @click="diamond" v-html="suits.Diamond"></button>
+                            <button @click="club" v-html="suits.Club"></button>
+                            <button @click='cancelsuits'>Cancel</button>
+                        </div>
+                </div>
+            </div>
        
     </div>  
 </body>
