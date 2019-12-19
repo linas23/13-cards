@@ -22,28 +22,14 @@ new Vue({
         facecards:['<img src="https://img.icons8.com/ios-filled/50/000000/joker-card.png">','<img src="https://img.icons8.com/color/48/000000/queen-uk.png">','<img src="https://img.icons8.com/ios-filled/50/000000/fairytale.png">'],
         showswapselection:false,
         xory:'',
-        Value:0,
-        Style:{},
+        Value:'',
         showskewform:false,
         randomvalue:50,
-        SkewX:{ 
-            transition:'all 1s ease-in-out',
-            transform:`skewX(23deg)`
-        },
-        SkewY:{
-            transition:'all 1s ease-in-out',
-            transform:`skewY(23deg)`
-        },
         showScale:false,
         showscaleform:false,
-        ScaleX:{ 
-            transition:'all 1s ease-in-out',
-            transform:`scaleX(1.4)`
-        },
-        ScaleY:{
-            transition:'all 1s ease-in-out',
-            transform:`scaleY(1.4)`
-        },
+        scaleStyle:{},
+        skewStyle:{},
+        threedstyle:{},
         show3D:false,
         show3dform:false,
         show3dselection:false,
@@ -53,18 +39,11 @@ new Vue({
             z:'0',
             a:'0',
         },
-        d3rotationstyle:{
-            // transform : rotate3d(this.xyza.x)
-            //  "`rotate3d(${this.xyza.x},${this.xyza.y},${this.xyza.z},${this.xyza.a})`"
-        },
         showtranslateform:false,
         txyz:{
             tx:'0',
             ty:'0',
             tz:'0'
-        },
-        translatestyle:{
-
         },
         show3dscaleform:false,
         sxyz:{
@@ -72,16 +51,9 @@ new Vue({
             sy:'0',
             sz:'0',
         },
-        scalestyle:{
-
-        },
         showperspective:false,
         showperspectiveform:false,
-        // perspectivevalue:33,
-        perspectivestyle:{
-            perspective : '150px',
-            transition: 'perspective 3s ease-in-out'
-        },
+        perspectiveStyle:{},
     },
     methods:{
         rotateCard(){
@@ -136,8 +108,7 @@ new Vue({
                 this.removeBindingClass();
             }
         },
-        changeSuit(){
-            
+        changeSuit(){  
             console.log('suit changed');
             this.showSelection=true;
         },
@@ -204,23 +175,29 @@ new Vue({
             this.xory='';
             this.Style='';
             this.xory='X';
+            this.Value=0;
+            this.skewStyle={};
         },
         skewY(){
             this.skewform();
             this.xory='';
             this.Style='';
-            this.xory='Y';     
+            this.xory='Y';   
+            this.Value=0;  
+            this.skewStyle={};
         },
         skewdone(){
-            console.log(this.Value);
-            console.log(this.Style);
+            var value = this.Value;
             if(this.xory == 'X'){
-                this.Value = this.Value;
-                this.Style= this.SkewX;
-                console.log(this.Style);
+                this.skewStyle={
+                    transform:`skewX(${value}deg)`,
+                    transition:'all 1.5s ease'
+                };
             }else{
-                this.Style= this.SkewY;
-                console.log(this.Style);
+                this.skewStyle={
+                    transform:`skewY(${value}deg)`,
+                    transition:'all 1.5s ease'
+                };
             }
         },
         scaleshow(){
@@ -240,24 +217,35 @@ new Vue({
             this.scaleform();
             this.xory='';
             this.xory='X';
-            this.Style='';
+            this.Value=0;
+            this.scaleStyle={};
         },
         scaleY(){
             this.scaleform();
             this.xory='';
             this.xory='Y';     
-            this.Style='';
+            this.Value=0;
+            this.scaleStyle={};
         },
         scaledone(){
-            console.log(this.Value);
-            console.log(this.Style);
+            // console.log(this.Value);
+            // console.log(this.Style);
+            var value = this.Value;
             if(this.xory == 'X'){
-                // console.log('scale x');
-                this.Style= this.ScaleX;
-                console.log(this.Style);
+                console.log(this.xory);
+                console.log(this.Value);
+                this.scaleStyle = {
+                    transform:`scaleX(${value})`,
+                    transition:'all 1.5s ease'
+                };
+                console.log(this.scaleStyle);
             }else{
-                this.Style= this.ScaleY;
-                console.log(this.Style);
+                console.log(this.xory);
+                console.log(this.Value);
+                this.scaleStyle = {
+                    transform : `scaleY(${value})`, 
+                    transition:'all 1.5s ease'
+                };
             }
         },
         D3show(){
@@ -278,41 +266,74 @@ new Vue({
             this.show3dscaleform=false;
             this.showtranslateform=false;
             // this.show3dselection = true;
+            this.threedstyle={};
         },
         d3done(){
             //execute the transformation
+            console.log(this.threedstyle);
             console.log('3D rotation executed.');
-            console.log(`values: `);
             console.log(this.xyza);
-            this.Style= this.d3rotationstyle;
-            console.log(this.Style);
+            var x,y,z,a;
+            x= this.xyza.x;
+            y= this.xyza.y;
+            z= this.xyza.z;
+            a= this.xyza.a;
+            this.threedstyle={
+                transform: `rotate3d(${x},${y},${z},${a}deg)`,
+                transition:`all 1.5s ease`
+            };
+            console.log(this.threedstyle);
         },
         translate3D(){
             this.show3dform=false;
             this.show3dscaleform=false;
             this.showtranslateform=true;
+            this.threedstyle={};
         },
         translatedone(){
             //execute the transformation
+            console.log('translating');
+            var tx,ty,tz;
+            tx=this.txyz.tx;
+            ty=this.txyz.ty;
+            tz=this.txyz.tz;
+            this.threedstyle={
+                transform: `translate3d(${tx}px,${ty}px,${tz}px)`,
+                transition: 'all 1.5s ease' 
+            };
         },
         scale3D(){
             this.show3dscaleform=true;
             this.show3dform=false;
             this.showtranslateform=false;
+            this.threedstyle={};
         },
         scale3ddone(){
-
+            console.log('scaling');
+            var sx,sy,sz;
+            sx= this.sxyz.sx;
+            sy=this.sxyz.sy;
+            sz=this.sxyz.sz;
+            this.threedstyle={
+                transform:`scale3d(${sx},${sy},${sz})`,
+                transition:'all 1.5s ease'
+            }
         },
         perspective(){
             this.showCards=false;
             this.showperspective=true;
+            this.perspectiveStyle={};
         },
         changeperspective(){
             this.showperspectiveform=true;
+            this.Value=0;
         },
         perspectivedone(){
-            console.log(this.perspectivestyle);
-            this.Style= this.perspectivestyle;
+            var value = this.Value;
+            this.perspectiveStyle= {
+                perspective:`${value}px`,
+                transition:'all 2s ease'
+            };
         },
         cancelperspective(){
             this.showperspective=false;

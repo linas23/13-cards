@@ -43,8 +43,8 @@
                                 <div class="cubeFace face2"></div>
                             </div>
                         </div> -->
-                        <div id="wrapD3Cube" v-bind:style="Style">
-                                <div id="D3Cube" >
+                        <div id="wrapD3Cube" >
+                                <div id="D3Cube" v-bind:style="perspectiveStyle" >
                                     <div id="side1"></div>
                                     <div id="side2"></div>
                                     <div id="side3"></div>
@@ -71,7 +71,7 @@
                     </div>
                     <div class="main">
                         <div class="card">
-                            <img src="images/joker-card.png" title="HaHaHaHa" v-bind:style="Style">
+                            <img src="images/joker-card.png" title="HaHaHaHa" v-bind:style="threedstyle">
                         </div>
                     </div>
                     <div class="buttons">
@@ -126,7 +126,7 @@
                             Sy : <input type="text" v-model="sxyz.sy">&nbsp;
                             Sz : <input type="text" v-model="sxyz.sz">&nbsp;
                         </div>
-                        <button @click="d3done">Done</button>
+                        <button @click="scale3ddone">Done</button>
                         <!--
                             sx
                             Is a <number> representing the abscissa of the scaling vector.
@@ -145,7 +145,7 @@
                     </div>
                     <div class="main">
                         <div class="card">
-                            <img src="images/joker-card.png" title="HaHaHaHa" v-bind:style="Style">
+                            <img src="images/joker-card.png" title="HaHaHaHa" v-bind:style="scaleStyle">
                         </div>
                     </div>
                     <div class="buttons">
@@ -165,12 +165,12 @@
                     </div>
                     <div class="main">
                         <div class="card">
-                            <img src="images/joker-card.png" title="HaHaHaHa" v-bind:style="Style">
+                            <img src="images/joker-card.png" title="HaHaHaHa" v-bind:style="skewStyle">
                         </div>
                     </div>
                     <div class="buttons">
-                        <button @click="skewX" v-bind:class="bindingClass">Skew X</button>
-                        <button @click="skewY" v-bind:class="bindingClass">Skew Y</button>
+                        <button @click="skewX" >Skew X</button>
+                        <button @click="skewY" >Skew Y</button>
                         <button @click="skewcancel">Cancel</button>
                         <div class="skewform" v-if="showskewform" >
                             Enter the value you want to skew{{xory}}: <input type="text" v-model="Value">
@@ -179,8 +179,8 @@
                     </div>
             </div>
         <!-- Main cards -->
-        <div class="cards">
-                <div class="card" v-for="(num,index) in numbers" v-if="showCards">
+        <div class="cards" v-if="showCards">
+                <div class="card" v-for="(num,index) in numbers" >
                     <div class="box" v-bind:class="bindingClass">
                         <div class="left">
                             <div class="number">
